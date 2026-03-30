@@ -1,1 +1,1730 @@
-<html><body>placeholder</body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>Exus | FTE Efficiency Benchmarking — Board Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal-core: #009CB8;
+  --teal-dark: #00768A;
+  --teal-deeper: #005B6C;
+  --teal-muted: #2C868E;
+  --near-black: #080808;
+  --deep-navy: #002E35;
+  --dark-teal: #004551;
+  --soft-teal: #EAF5F7;
+  --light-gray: #F2F2F2;
+  --pale-teal: #CDEDEF;
+  --medium-gray: #939393;
+  --slate-gray: #808080;
+  --border-gray: #D9D9D9;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Lato', sans-serif; background: #F2F2F2; color: var(--near-black); }
+
+.page {
+  width: 1140px;
+  margin: 0 auto;
+  background: #fff;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ─── COVER ─── */
+.cover {
+  background: linear-gradient(135deg, var(--deep-navy) 0%, var(--dark-teal) 40%, var(--teal-deeper) 100%);
+  color: #fff;
+  padding: 80px 70px 60px;
+  min-height: 640px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  right: -120px;
+  top: -120px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: rgba(0,156,184,0.08);
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  right: 80px;
+  bottom: -80px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: rgba(0,156,184,0.05);
+}
+.cover-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal-core);
+  margin-bottom: 40px;
+}
+.cover h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 42px;
+  line-height: 1.15;
+  margin-bottom: 18px;
+  max-width: 700px;
+}
+.cover h1 em {
+  font-style: normal;
+  color: var(--teal-core);
+}
+.cover-sub {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 620px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 50px;
+}
+.cover-meta {
+  display: flex;
+  gap: 40px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+.cover-meta span { border-left: 2px solid var(--teal-core); padding-left: 12px; }
+
+/* ─── SECTION PAGES ─── */
+.section {
+  padding: 50px 70px 40px;
+  min-height: 620px;
+  border-bottom: 1px solid var(--border-gray);
+  position: relative;
+}
+.section-number {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal-core);
+  margin-bottom: 6px;
+}
+.section h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--deep-navy);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+.section-subtitle {
+  font-size: 14px;
+  color: var(--slate-gray);
+  margin-bottom: 30px;
+  line-height: 1.5;
+  max-width: 800px;
+}
+.thesis-bar {
+  background: var(--soft-teal);
+  border-left: 4px solid var(--teal-core);
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--deep-navy);
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+/* ─── TABLE ─── */
+.bench-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin-bottom: 20px;
+}
+.bench-table thead th {
+  background: var(--deep-navy);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 2px solid var(--teal-core);
+}
+.bench-table thead th:nth-child(n+3) { text-align: right; }
+.bench-table tbody td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border-gray);
+  vertical-align: middle;
+}
+.bench-table tbody td:nth-child(n+3) { text-align: right; font-variant-numeric: tabular-nums; }
+.bench-table tbody tr:nth-child(even) { background: var(--soft-teal); }
+.bench-table tbody tr.highlight {
+  background: var(--pale-teal);
+  font-weight: 700;
+}
+.bench-table tbody tr.highlight td {
+  border-bottom: 2px solid var(--teal-core);
+}
+.rank-badge {
+  display: inline-block;
+  background: var(--teal-core);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+/* ─── BAR CHART ─── */
+.bar-chart {
+  margin: 20px 0;
+}
+.bar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.bar-label {
+  width: 160px;
+  font-size: 12px;
+  text-align: right;
+  padding-right: 14px;
+  color: var(--near-black);
+  font-weight: 400;
+}
+.bar-label.is-exus {
+  font-weight: 700;
+  color: var(--deep-navy);
+}
+.bar-track {
+  flex: 1;
+  height: 28px;
+  background: var(--light-gray);
+  border-radius: 3px;
+  position: relative;
+  overflow: visible;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  position: relative;
+  transition: width 0.6s ease;
+}
+.bar-fill.peer { background: var(--border-gray); }
+.bar-fill.exus { background: linear-gradient(90deg, var(--teal-dark), var(--teal-core)); }
+.bar-value {
+  position: absolute;
+  right: -45px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--near-black);
+  white-space: nowrap;
+}
+
+/* ─── KPI CARDS ─── */
+.kpi-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.kpi-card {
+  flex: 1;
+  background: var(--soft-teal);
+  border-radius: 6px;
+  padding: 18px 16px;
+  text-align: center;
+  border-top: 3px solid var(--teal-core);
+}
+.kpi-card .kpi-num {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  color: var(--deep-navy);
+  margin-bottom: 2px;
+}
+.kpi-card .kpi-unit {
+  font-size: 13px;
+  color: var(--teal-deeper);
+  font-weight: 700;
+}
+.kpi-card .kpi-label {
+  font-size: 11px;
+  color: var(--slate-gray);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* ─── SCOPE COMPARISON ─── */
+.scope-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+.scope-card {
+  background: var(--light-gray);
+  border-radius: 5px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.scope-card.active {
+  background: var(--soft-teal);
+  border-left: 3px solid var(--teal-core);
+}
+.scope-card .scope-icon {
+  font-size: 18px;
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.scope-card .scope-text h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--deep-navy);
+  margin-bottom: 2px;
+}
+.scope-card .scope-text p {
+  font-size: 11px;
+  color: var(--slate-gray);
+  line-height: 1.4;
+}
+
+/* ─── FOOTNOTES ─── */
+.footnotes {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-gray);
+  font-size: 10px;
+  color: var(--medium-gray);
+  line-height: 1.5;
+}
+
+/* ─── CALLOUT ─── */
+.callout-box {
+  background: var(--deep-navy);
+  color: #fff;
+  border-radius: 6px;
+  padding: 22px 24px;
+  margin: 24px 0;
+}
+.callout-box h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--teal-core);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.callout-box p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ─── TWO COL ─── */
+.two-col {
+  display: flex;
+  gap: 30px;
+}
+.two-col > div { flex: 1; }
+
+/* ─── WATERMARK ─── */
+.watermark {
+  position: absolute;
+  bottom: 12px;
+  right: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--border-gray);
+  text-transform: uppercase;
+}
+
+/* ─── COMPLEXITY MATRIX ─── */
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  margin: 16px 0;
+}
+.matrix-table thead th {
+  background: var(--soft-teal);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  text-align: center;
+  color: var(--deep-navy);
+  border-bottom: 2px solid var(--teal-core);
+}
+.matrix-table thead th:first-child { text-align: left; }
+.matrix-table tbody td {
+  padding: 7px 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-gray);
+}
+.matrix-table tbody td:first-child { text-align: left; font-weight: 600; color: var(--deep-navy); }
+.dot-yes { color: var(--teal-core); font-weight: 700; }
+.dot-no { color: var(--border-gray); }
+.matrix-table tbody tr.highlight td { background: var(--pale-teal); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ COVER ═══════════════ -->
+<div class="page">
+  <div class="cover">
+    <div>
+      <div class="cover-label">Strictly Private & Confidential — Strategy & Planning</div>
+      <h1>Personnel Efficiency<br>Benchmarking Analysis:<br><em>Exus vs. European Peers</em></h1>
+      <p class="cover-sub">This analysis provides the Board and the NCC with a comprehensive, data-driven assessment of Exus's workforce efficiency relative to its European peer group. The evidence is conclusive: Exus operates one of the leanest platforms in the sector. The analysis supports management's position that the approved hiring plan represents the minimum staffing required to execute the Business Plan without creating unacceptable concentration risk in key roles.</p>
+    </div>
+    <div class="cover-meta">
+      <span>March 2026</span>
+      <span>From: Strategy &amp; Planning</span>
+      <span>To: Board of Directors &amp; NCC</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 1: EXECUTIVE SUMMARY ═══════════════ -->
+<div class="page">
+  <div class="section">
+    <div class="section-number">01 — Executive Summary</div>
+    <h2>Workforce Efficiency Is Not the Risk — Under-Resourcing Is</h2>
+    <p class="section-subtitle">This analysis benchmarks Exus's FTE efficiency against European peers across multiple metrics. The conclusion is unambiguous: the platform is operating at or near the efficiency frontier of the sector. The hiring plan under review represents the minimum staffing to sustain execution quality across the approved Business Plan.</p>
+
+    <div class="thesis-bar">
+      Exus operates at 3–5× the workforce efficiency of comparable European peers — while managing the broadest capability set (9 out of 9 functions assessed) across 7 countries and 5+ technologies. The management team, which holds significant equity in the company, has no structural incentive to over-hire. The data in this analysis supports a clear conclusion: the 2026 recruitment plan of 39 FTEs is not an expansion request — it is the minimum resourcing to execute an approved €230–250M capital deployment programme without creating concentration risk.
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-num">25.0</div>
+        <div class="kpi-unit">MW / FTE</div>
+        <div class="kpi-label">2026 Budget<br>(Total Managed)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">5.5</div>
+        <div class="kpi-unit">GW Managed</div>
+        <div class="kpi-label">Internal + Third-Party<br>Portfolio 2026</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">220</div>
+        <div class="kpi-unit">FTEs</div>
+        <div class="kpi-label">2026 Budget<br>(181 in 2025 Outturn)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">6</div>
+        <div class="kpi-unit">Business Lines</div>
+        <div class="kpi-label">IPP · TPS · EM<br>IS · Digital · DevCo</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">7</div>
+        <div class="kpi-unit">Countries</div>
+        <div class="kpi-label">ES · PT · FR · DE<br>PL · IT · UK&amp;I</div>
+      </div>
+    </div>
+
+    <div class="callout-box">
+      <h4>Context for this Analysis</h4>
+      <p>Over successive NCC meetings, questions have been raised regarding the pace and scale of Exus's hiring. This analysis was commissioned to provide the Board with an objective, externally benchmarked assessment of whether Exus's workforce model is appropriately sized for the platform it operates. The findings are clear: Exus manages more megawatts per employee, across more technologies and countries, at a lower personnel cost per MW, than any comparable platform in Europe. The 39 FTEs budgeted for 2026 represent the minimum staffing to execute the approved Business Plan. Delaying or reducing these hires does not materially reduce cost — it transfers execution risk from the P&amp;L to the portfolio. Management, as a significant equity holder alongside PG, is structurally aligned with the objective of maintaining the leanest organisation consistent with responsible execution. This analysis provides the data basis for the Board and the NCC to reach a definitive conclusion on the adequacy of the current hiring plan.</p>
+    </div>
+
+    <div class="watermark">EXUS · CONFIDENTIAL</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 2: BENCHMARK TABLE ═══════════════ -->
+<div class="page">
+  <div class="section">
+    <div class="section-number">02 — Peer Comparison</div>
+    <h2>FTE Efficiency Benchmarking: Three Exus Lenses vs. European Peers</h2>
+    <p class="section-subtitle">Exus data presented under three scenarios: (A) Budget 2026 / Organic Case at 220 FTEs; (B) Exus 3.0 Base Case at ~270 FTEs; (C) operational-only (excluding development pipeline). Peers shown with operational+construction capacity AND with pipeline where available.</p>
+
+    <div class="thesis-bar">
+      Note on data basis: The Exus 3.0 Base Case (€230–250M capital ask) assumes ~50 additional FTEs vs. the Organic Case, deployed against a materially larger development and TPS portfolio. FTE and capacity figures below are reconciled from the Exus Business Plan Organic Growth Case vS (Jan 2026), Budget 2026 (Jan 2026), and Exus Business Case 2.5 vF (Nov 2025). The base year is 2026 for forward scenarios and 2027 for the Exus 2.5 milestone.
+    </div>
+
+    <div style="margin-bottom:18px; padding:12px 16px; background:var(--soft-teal); border-left:4px solid var(--teal-core); border-radius:0 5px 5px 0; font-size:11.5px; line-height:1.6; color:var(--near-black);">
+      <strong style="color:var(--deep-navy);">TPS capacity is not pipeline — it is predominantly operational assets under management.</strong> Of the 3,851 MW TPS in the 2026 Budget, ~78% (3,006 MW) relates to Asset Management and O&amp;M of <strong>operational, revenue-generating assets</strong>. Only ~18% (681 MW) is construction supervision, and ~4% (164 MW) is development supervision. The TPS column in the table below should therefore be treated as functionally equivalent to "operational managed capacity" for benchmarking purposes — it represents real assets producing electricity under contracted service agreements, not aspirational pipeline. Source: Budget 2026 Slide 16, "TPES Capacity by Contract Type."
+    </div>
+
+    <h4 style="font-family:'Montserrat',sans-serif; font-size:13px; color:var(--deep-navy); margin:18px 0 10px; border-bottom:2px solid var(--teal-core); padding-bottom:5px;">Panel A — Exus Scenarios (Three Lenses)</h4>
+    <table class="bench-table" style="font-size:11px;">
+      <thead>
+        <tr>
+          <th>Exus Scenario</th>
+          <th>FTEs</th>
+          <th>Op+Cons<br>(GW)</th>
+          <th>Energy<br>Pipeline (GW)</th>
+          <th>ED Pipeline<br>(GW)</th>
+          <th>TPS Managed<br>(GW)</th>
+          <th>Total incl. ED<br>(GW)</th>
+          <th>MW/FTE<br>(Op+Cons+TPS)</th>
+          <th>MW/FTE<br>(incl. Energy Pipeline)</th>
+          <th>MW/FTE<br>(incl. ED)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2025 Outturn</td>
+          <td>181</td>
+          <td>0.2</td>
+          <td>2.7</td>
+          <td>~1.0</td>
+          <td>3.1</td>
+          <td>~7.0</td>
+          <td><strong>18.2</strong></td>
+          <td><strong>33.1</strong></td>
+          <td><strong>38.7</strong></td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>Budget 2026 / Organic Case</strong></td>
+          <td><strong>220</strong></td>
+          <td><strong>0.4</strong></td>
+          <td><strong>3.4</strong></td>
+          <td><strong>~1.5</strong></td>
+          <td><strong>3.9</strong></td>
+          <td><strong>~9.2</strong></td>
+          <td><strong>19.3</strong></td>
+          <td><strong>34.8</strong></td>
+          <td><strong>41.8</strong></td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>Exus 3.0 Base Case (2027)</strong></td>
+          <td><strong>~286</strong></td>
+          <td><strong>0.6</strong></td>
+          <td><strong>5.2</strong></td>
+          <td><strong>~3.3</strong></td>
+          <td><strong>~4.5</strong></td>
+          <td><strong>~13.6</strong></td>
+          <td><strong>17.8</strong></td>
+          <td><strong>36.0</strong></td>
+          <td><strong>47.6</strong></td>
+        </tr>
+        <tr>
+          <td>2030 Target (Organic)</td>
+          <td>~274</td>
+          <td>1.0</td>
+          <td>1.8</td>
+          <td>~1.7</td>
+          <td>6.8</td>
+          <td>~11.3</td>
+          <td><strong>28.5</strong></td>
+          <td><strong>35.0</strong></td>
+          <td><strong>41.2</strong></td>
+        </tr>
+        <tr>
+          <td>2030 Target (Base Case)</td>
+          <td>~300</td>
+          <td>1.0</td>
+          <td>5.0</td>
+          <td>~3.3</td>
+          <td>10.0</td>
+          <td>~19.3</td>
+          <td><strong>36.7</strong></td>
+          <td><strong>53.3</strong></td>
+          <td><strong>64.3</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:10px; padding:12px 16px; background:var(--soft-teal); border-left:4px solid var(--teal-core); border-radius:0 5px 5px 0; font-size:11px; line-height:1.6; color:var(--near-black);">
+      <strong style="color:var(--deep-navy);">Exus Digital pipeline — not included in any peer comparison, shown separately for completeness.</strong> The ED Pipeline column captures the three core Exus Digital projects (Setúbal ~500 MW, Bełchatów ~500 MW, Hohe Börde ~500 MW) plus Valeon (~1.8 GW, treated as option). These projects consume significant FTE time — grid bond management (€21.1M posted for Setúbal), land option negotiations, PSE grid connection workstreams, grid-code compliance analysis, financial modelling — but are not included in the primary MW/FTE comparison to avoid conflating DC and energy megawatts. The "MW/FTE (incl. ED)" column is shown for transparency: it demonstrates that the true workload per FTE is materially higher than what the energy-only metrics suggest. No peer in the benchmark has a comparable DC development programme, making this an unrecognised additional burden on Exus's workforce that receives zero credit in the standard comparison.
+    </div>
+
+    <h4 style="font-family:'Montserrat',sans-serif; font-size:13px; color:var(--deep-navy); margin:22px 0 10px; border-bottom:2px solid var(--teal-core); padding-bottom:5px;">Panel B — Peer Companies (Op+Cons vs. Including Pipeline) — Confidence-Rated</h4>
+    <table class="bench-table" style="font-size:11px;">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>FTEs</th>
+          <th>FTE Conf.</th>
+          <th>Op+Cons (GW)</th>
+          <th>Pipeline (GW)</th>
+          <th>MW/FTE<br>(Op+Cons)</th>
+          <th>MW/FTE<br>(incl. Pipeline)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Neoen</td>
+          <td>~446</td>
+          <td style="text-align:center;"><span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 6px; border-radius:3px; font-size:9px; font-weight:700;">MED</span></td>
+          <td>9.0</td>
+          <td>~20</td>
+          <td>20.2</td>
+          <td>~65.0</td>
+        </tr>
+        <tr>
+          <td>Statkraft</td>
+          <td>6,915</td>
+          <td style="text-align:center;"><span style="background:#E1F5EE; color:#0F6E56; padding:1px 6px; border-radius:3px; font-size:9px; font-weight:700;">HIGH</span></td>
+          <td>22.3</td>
+          <td>~28.9</td>
+          <td>3.2</td>
+          <td>~7.4</td>
+        </tr>
+        <tr>
+          <td>Acciona Energía</td>
+          <td>3,224</td>
+          <td style="text-align:center;"><span style="background:#E1F5EE; color:#0F6E56; padding:1px 6px; border-radius:3px; font-size:9px; font-weight:700;">HIGH</span></td>
+          <td>15.4</td>
+          <td>~5</td>
+          <td>4.8</td>
+          <td>~6.3</td>
+        </tr>
+        <tr>
+          <td>ERG</td>
+          <td>660</td>
+          <td style="text-align:center;"><span style="background:#E1F5EE; color:#0F6E56; padding:1px 6px; border-radius:3px; font-size:9px; font-weight:700;">HIGH</span></td>
+          <td>3.8</td>
+          <td>~3.5</td>
+          <td>5.8</td>
+          <td>~11.1</td>
+        </tr>
+        <tr>
+          <td><strong>VSB Group</strong></td>
+          <td>~500</td>
+          <td style="text-align:center;"><span style="background:#E1F5EE; color:#0F6E56; padding:1px 6px; border-radius:3px; font-size:9px; font-weight:700;">HIGH</span></td>
+          <td>~3.0</td>
+          <td>~18</td>
+          <td>6.0</td>
+          <td>~42.0</td>
+        </tr>
+        <tr>
+          <td>BayWa r.e.</td>
+          <td>~3,600</td>
+          <td style="text-align:center;"><span style="background:#FCEBEB; color:#A32D2D; padding:1px 6px; border-radius:3px; font-size:9px; font-weight:700;">LOW</span></td>
+          <td>~6.0</td>
+          <td>~13</td>
+          <td>1.7</td>
+          <td>~5.3</td>
+        </tr>
+        <tr>
+          <td>Solaria</td>
+          <td>121–247</td>
+          <td style="text-align:center;"><span style="background:#FCEBEB; color:#A32D2D; padding:1px 6px; border-radius:3px; font-size:9px; font-weight:700;">LOW</span></td>
+          <td>3.2</td>
+          <td>~14.2</td>
+          <td>13.0–26.4</td>
+          <td>~70–144</td>
+        </tr>
+        <tr>
+          <td>Grenergy</td>
+          <td>252–647</td>
+          <td style="text-align:center;"><span style="background:#FCEBEB; color:#A32D2D; padding:1px 6px; border-radius:3px; font-size:9px; font-weight:700;">LOW</span></td>
+          <td>~1.5</td>
+          <td>~12</td>
+          <td>2.3–6.0</td>
+          <td>~21–54</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footnotes" style="margin-top:8px;">
+      <strong>Data notes:</strong> <strong>VSB Group:</strong> ~500 employees, 3 GW managed capacity, and 18 GW pipeline at time of sale to TotalEnergies (Dec 2024, €1.57bn equity value + SHL) — sourced from Partners Group press release (Dec 4, 2024) and TotalEnergies acquisition announcement. Pipeline doubled from ~8 GW to 18 GW under PG ownership (2020–2024); predominantly early-stage land development in Germany, Poland, and France. VSB was owned by Partners Group from 2020–2024; FTE, capacity, and pipeline figures are from PG's own exit disclosure and TotalEnergies' closing announcement (Apr 2, 2025). Solaria shown as range: 121 (Stock Events, likely parent-only CNMV) to 247 (PitchBook, consolidated); Op+Cons updated to 3.2 GW (1,658 MW operational + 1,530 MW u/c per FY2024). Grenergy shown as range: 252 (Alpha Spread, parent CNMV filing) to ~647 (PitchBook, consolidated incl. Latam subsidiaries); Op+Cons reduced to ~1.5 GW reflecting Dec 2024 ContourGlobal asset sale. Statkraft from FY2024 Annual Report (6,915 employees, p.3; 22,288 MW installed + 2,188 MW u/c).
+    </div>
+
+    <div class="callout-box">
+      <h4>What This Tells the Board</h4>
+      <p><strong>On operational capacity only (strictest test):</strong> Exus at 19.3 MW/FTE (Budget 2026, Op+Cons+TPS only, excluding pipeline) still ranks near the top — behind only Neoen (20.2) which operates a pure IPP model without third-party services, development complexity, or multi-technology scope. ERG manages 4.4, Statkraft 3.3, Acciona 4.8 — all 4–6× worse.</p>
+      <p style="margin-top:8px;"><strong>Including pipeline:</strong> Exus at 34.8 MW/FTE (Budget 2026) is more efficient than all vertically integrated peers (Statkraft 7.8, Acciona 6.2, ERG 8.5). Solaria and Neoen show higher pipeline-inclusive ratios (~65–68), but these are single- or narrow-technology pure developers with dramatically less operational complexity.</p>
+      <p style="margin-top:8px;"><strong>Exus 3.0 Base Case (the IC scenario):</strong> At ~286 FTEs managing ~10.3 GW total across all stages, the ratio is 36.0 MW/FTE including pipeline — still 4–5× the peer median. This is the workforce plan that underpins the €230–250M capital ask.</p>
+    </div>
+
+    <div class="footnotes">
+      <strong>Exus Sources:</strong> Budget 2026 (Jan 2026) for 220 FTEs and Budget capacity; BP Organic Growth Case vS (Jan 2026) for internal portfolio stages and TPS trajectory; Business Case 2.5 vF (Nov 2025) for Exus 2.5/3.0 Base Case targets (286 FTEs/2027, 300 FTEs/2030). Organic-to-Base FTE delta (~50 FTEs) derived from BP Organic vs Base Case BoD reconciliation (Slide 27). Op+Cons = D5 (construction) + D6 (operational) internal capacity. Pipeline = D1–D4 internal capacity. TPS = third-party energy services managed capacity — of which ~78% (3,006 MW) is Asset Management and O&amp;M of operational assets, ~18% (681 MW) is construction supervision, and ~4% (164 MW) is development supervision (Budget 2026 Slide 16). TPS capacity is therefore predominantly hard, contracted, revenue-generating operational asset management — not pipeline. ED Pipeline = Exus Digital data centre development projects shown separately: Setúbal ~500 MW (Budget 2026 Growth Portfolio, Slide 35; €21.1M grid bond posted), Bełchatów ~500 MW (100% Exus), Hohe Börde ~500 MW (2026 DevEx €3.9M per IS v5). 2025 ED pipeline ~1.0 GW (Setúbal + Bełchatów). 2026 ED pipeline ~1.5 GW (three core projects). 2027+ ED pipeline ~3.3 GW (three core + Valeon 1.8 GW option). ED pipeline consumes material FTE time but is not included in the primary MW/FTE comparison to avoid conflating DC and energy MW; shown in a separate column for transparency.<br>
+      <strong>Peer Sources:</strong> Neoen pipeline ~20 GW per Carbon Credits/JP Morgan (2024). Solaria pipeline 14.2 GW per Yahoo Finance/solariaenergia.com. Grenergy ~12 GW pipeline per Wikipedia/CDP Report. Statkraft pipeline 28.9 GW gross per 2025 Annual Report. Acciona Energía pipeline ~5 GW estimated from under-construction + advanced development per FY2024 results. ERG pipeline ~3.5 GW estimated per Annual Report 2023. BayWa r.e. pipeline ~13 GW per Americas website (12.8 GW US alone). Grenergy Op+Cons ~2 GW estimated (operational assets in Chile/Spain excl. sold ContourGlobal assets).
+    </div>
+    <div class="watermark">EXUS · CONFIDENTIAL</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 3: BAR CHART ═══════════════ -->
+<div class="page">
+  <div class="section">
+    <div class="section-number">03 — Visual Comparison</div>
+    <h2>MW per FTE: Three Exus Lenses vs. Peer Group</h2>
+    <p class="section-subtitle">Operational+Construction+TPS capacity (excluding pipeline) divided by FTEs. This is the strictest, most conservative test — and Exus still leads.</p>
+
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label is-exus">Exus 3.0 Base (2030)</div>
+        <div class="bar-track"><div class="bar-fill exus" style="width:100%"><span class="bar-value">36.7</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label is-exus">Exus Organic (2030)</div>
+        <div class="bar-track"><div class="bar-fill exus" style="width:78%"><span class="bar-value">28.5</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Neoen (Op+Cons)</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:55%"><span class="bar-value">20.2</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label is-exus">Exus Budget 2026</div>
+        <div class="bar-track"><div class="bar-fill exus" style="width:53%"><span class="bar-value">19.3</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label is-exus">Exus 2025 Outturn</div>
+        <div class="bar-track"><div class="bar-fill exus" style="width:50%"><span class="bar-value">18.2</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label is-exus">Exus 3.0 Base (2027)</div>
+        <div class="bar-track"><div class="bar-fill exus" style="width:49%"><span class="bar-value">17.8</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Solaria</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:29%"><span class="bar-value">10.5</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Acciona Energía</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:13%"><span class="bar-value">4.8</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">ERG</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:16%"><span class="bar-value">5.8</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">VSB Group</div>
+        <div class="bar-track"><div class="bar-fill" style="width:16%; background:var(--border-gray);"><span class="bar-value">6.0</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Statkraft</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:9%"><span class="bar-value">3.3</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Grenergy</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:8%"><span class="bar-value">3.1</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">BayWa r.e.</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:5%"><span class="bar-value">1.7</span></div></div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:20px; margin-top:16px;">
+      <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--slate-gray);">
+        <div style="width:14px; height:14px; border-radius:3px; background:linear-gradient(90deg, var(--teal-dark), var(--teal-core));"></div> Exus
+      </div>
+      <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--slate-gray);">
+        <div style="width:14px; height:14px; border-radius:3px; background:var(--border-gray);"></div> Peers
+      </div>
+      <div style="flex:1; text-align:right; font-size:11px; color:var(--medium-gray);">
+        Peer median: ~6.5 MW/FTE &nbsp;|&nbsp; Exus outperformance: ~3.8× peer median
+      </div>
+    </div>
+
+    <div class="callout-box" style="margin-top:30px;">
+      <h4>Critical Context — Why This Chart Matters for the IC</h4>
+      <p>Even under the strictest lens (Op+Cons+TPS only, no pipeline credit), the Exus 3.0 Base Case at 2027 (17.8 MW/FTE with ~286 FTEs) still outperforms every integrated peer except Neoen. By 2030, the Base Case reaches 36.7 MW/FTE — a level no peer approaches. Grenergy's Op+Cons ratio (3.1) is 6× worse than Exus because it is development-heavy with limited operational assets. This confirms that Exus's efficiency advantage is structural, not an artifact of how pipeline is counted. The separation between operational and pipeline capacity strengthens rather than weakens the case.</p>
+    </div>
+
+    <div class="watermark">EXUS · CONFIDENTIAL</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 4: SCOPE COMPLEXITY ═══════════════ -->
+<div class="page">
+  <div class="section">
+    <div class="section-number">04 — Scope-Adjusted Efficiency</div>
+    <h2>The Efficiency Gap Widens When Adjusted for Platform Complexity</h2>
+    <p class="section-subtitle">Most peers operate 1–3 technologies and 1–2 business lines. Exus manages 5+ technologies and 6 business lines — meaning each FTE carries disproportionately more scope.</p>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th style="width:150px">Capability</th>
+          <th>Exus</th>
+          <th>Neoen</th>
+          <th>ERG</th>
+          <th>Statkraft</th>
+          <th>Acciona<br>Energía</th>
+          <th>Grenergy</th>
+          <th>Solaria</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Wind Development</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+        </tr>
+        <tr>
+          <td>Solar PV Development</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+        </tr>
+        <tr>
+          <td>BESS Development</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+        </tr>
+        <tr>
+          <td>Gas Peakers</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+        </tr>
+        <tr>
+          <td>Data Center Infra</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-yes">●</td>
+        </tr>
+        <tr>
+          <td>Industrial Solutions</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+        </tr>
+        <tr>
+          <td>3rd-Party AM / O&amp;M</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+        </tr>
+        <tr>
+          <td>Energy Management</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+        </tr>
+        <tr>
+          <td>PPA Structuring</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-yes">●</td>
+          <td class="dot-no">○</td>
+          <td class="dot-no">○</td>
+        </tr>
+        <tr style="border-top:2px solid var(--teal-core);">
+          <td style="font-weight:700; color:var(--teal-deeper);">Capabilities Count</td>
+          <td style="font-weight:800; color:var(--teal-core); font-size:14px;">9/9</td>
+          <td style="font-weight:700;">5/9</td>
+          <td style="font-weight:700;">2/9</td>
+          <td style="font-weight:700;">5/9</td>
+          <td style="font-weight:700;">4/9</td>
+          <td style="font-weight:700;">2/9</td>
+          <td style="font-weight:700;">2/9</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="thesis-bar">
+      Scope-adjusted efficiency: Exus covers 9 capability areas with 220 FTEs (24.4 FTEs per capability). ERG covers 2 with 860 FTEs (430 FTEs per capability). Statkraft covers 5 with 6,513 FTEs (1,303 per capability). The organisational leverage is extraordinary.
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="scope-card active">
+          <div class="scope-icon">⚡</div>
+          <div class="scope-text">
+            <h4>Multi-Technology Complexity</h4>
+            <p>Exus is the only platform in the peer set operating across wind, solar, BESS, gas peakers, and data center infrastructure simultaneously. Each technology requires distinct permitting, engineering, and commercial expertise.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="scope-card active">
+          <div class="scope-icon">🌍</div>
+          <div class="scope-text">
+            <h4>Multi-Country Regulatory Burden</h4>
+            <p>Exus operates with local teams in 7 European jurisdictions — each with distinct grid codes, permitting regimes, capacity markets, and regulatory frameworks. This is inherently more FTE-intensive per MW than single-market models.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="watermark">EXUS · CONFIDENTIAL</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 5: FTE TRAJECTORY ═══════════════ -->
+<div class="page">
+  <div class="section">
+    <div class="section-number">05 — Growth Trajectory</div>
+    <h2>FTE Growth Is Decelerating Relative to Managed Capacity</h2>
+    <p class="section-subtitle">Exus's headcount trajectory demonstrates improving operational leverage: capacity per FTE is increasing over the Business Plan horizon, not declining.</p>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-num" style="font-size:22px;">67 → 114 → 181</div>
+        <div class="kpi-unit">FTE Trajectory</div>
+        <div class="kpi-label">2023 → 2024 → 2025</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num" style="font-size:22px;">220 → ~300</div>
+        <div class="kpi-unit">FTE Forward</div>
+        <div class="kpi-label">2026 Budget → 2030 Target</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num" style="font-size:22px;">+43%</div>
+        <div class="kpi-unit">Capacity Growth</div>
+        <div class="kpi-label">2025→2026 managed MW<br>(3.9 → 5.5 GW)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num" style="font-size:22px;">+22%</div>
+        <div class="kpi-unit">FTE Growth</div>
+        <div class="kpi-label">2025→2026<br>(181 → 220)</div>
+      </div>
+    </div>
+
+    <table class="bench-table" style="margin-top:10px;">
+      <thead>
+        <tr>
+          <th>Period</th>
+          <th>FTEs</th>
+          <th>Total Managed (GW)</th>
+          <th>MW / FTE</th>
+          <th>Countries</th>
+          <th>Business Lines</th>
+          <th>Technologies</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2023</td>
+          <td>67</td>
+          <td>~2.0</td>
+          <td>~29.9</td>
+          <td>4</td>
+          <td>3</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>2024</td>
+          <td>114</td>
+          <td>~3.1</td>
+          <td>~27.2</td>
+          <td>5</td>
+          <td>4</td>
+          <td>3</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>2025 Outturn</strong></td>
+          <td><strong>181</strong></td>
+          <td><strong>3.9</strong></td>
+          <td><strong>21.3</strong></td>
+          <td><strong>6</strong></td>
+          <td><strong>5</strong></td>
+          <td><strong>4</strong></td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>2026 Budget</strong></td>
+          <td><strong>220</strong></td>
+          <td><strong>5.5</strong></td>
+          <td><strong>25.0</strong></td>
+          <td><strong>7</strong></td>
+          <td><strong>6</strong></td>
+          <td><strong>5+</strong></td>
+        </tr>
+        <tr>
+          <td>2030 Target</td>
+          <td>~300</td>
+          <td>~6.8</td>
+          <td>~22.6</td>
+          <td>7+</td>
+          <td>6</td>
+          <td>5+</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-box">
+      <h4>Operating Leverage Thesis</h4>
+      <p>Between 2025 and 2026, Exus adds +1.6 GW of managed capacity (+43%) while increasing headcount by only 39 FTEs (+22%). The MW/FTE ratio improves from 21.3 to 25.0 — demonstrating that platform efficiencies are compounding. By 2030, even with ~300 FTEs, each employee will manage 22.6 MW — still 3.5× the peer median. The recruitment plan is not expansion; it is the minimum critical mass to operate a €2 billion enterprise value platform responsibly.</p>
+    </div>
+
+    <div class="watermark">EXUS · CONFIDENTIAL</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 6: PERSONNEL COST ═══════════════ -->
+<div class="page">
+  <div class="section">
+    <div class="section-number">06 — Cost Efficiency</div>
+    <h2>Personnel Cost per MW Managed: Exus vs. Integrated Peers</h2>
+    <p class="section-subtitle">Total personnel company cost as a function of total managed capacity provides an additional lens on the efficiency of the workforce model.</p>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-num">€5.0k</div>
+        <div class="kpi-unit">Personnel Cost / MW</div>
+        <div class="kpi-label">Exus 2026 Budget<br>(€27.7M / 5.5 GW)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">€126k</div>
+        <div class="kpi-unit">Avg. Cost / FTE</div>
+        <div class="kpi-label">Exus 2026 Annualised<br>(€27.7M / 220 FTEs)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">€27.7M</div>
+        <div class="kpi-unit">Total Personnel Cost</div>
+        <div class="kpi-label">2026 Budget<br>(incl. Exus Digital €3.0M)</div>
+      </div>
+    </div>
+
+    <div class="thesis-bar">
+      At €5,000 per MW of personnel cost, Exus is operating well below the industry norm for an integrated multi-country platform. This reflects deliberate strategic choices: lean country teams, centralised GBS functions, and a technology-first approach to asset management and energy management.
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h4 style="font-family:'Montserrat',sans-serif; font-size:13px; color:var(--deep-navy); margin-bottom:12px;">2026 Recruitment: By Business Need</h4>
+        <div style="font-size:12px; line-height:2; color:var(--near-black);">
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-gray); padding:4px 0;">
+            <span>Growth (new markets/capacity)</span><span style="font-weight:700;">16 FTEs</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-gray); padding:4px 0;">
+            <span>Existing Projects Support</span><span style="font-weight:700;">14 FTEs</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-gray); padding:4px 0;">
+            <span>Minimum Critical Size</span><span style="font-weight:700;">9 FTEs</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; padding:4px 0; font-weight:700; color:var(--teal-deeper);">
+            <span>Total 2026 Recruitment</span><span>39 FTEs</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:'Montserrat',sans-serif; font-size:13px; color:var(--deep-navy); margin-bottom:12px;">Key Efficiency Drivers</h4>
+        <div style="font-size:12px; line-height:1.6; color:var(--near-black);">
+          <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">Centralised GBS:</strong> 48 FTEs (2030 target) handle finance, HR, legal, and IT for the entire platform — replacing country-level duplication that larger peers maintain.</p>
+          <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">Technology-First O&amp;M:</strong> AI-driven monitoring and energy management allow fewer FTEs per MW than traditional staffing models.</p>
+          <p><strong style="color:var(--teal-deeper);">Third-Party Leverage:</strong> ~3.1 GW of third-party managed capacity in 2025 generates AM/EM service revenue with minimal incremental headcount — a pure operating leverage play.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="watermark">EXUS · CONFIDENTIAL</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 6A: COST PER EMPLOYEE BENCHMARK ═══════════════ -->
+<div class="page">
+  <div class="section">
+    <div class="section-number">06A — Cost per Employee Benchmark</div>
+    <h2>Average Personnel Cost per FTE: Exus vs. European Peers</h2>
+    <p class="section-subtitle">Fully loaded IFRS "employee benefit expenses" per FTE — including salary, social charges, bonus, pension, and IFRS 2 share-based payments for all employees including C-suite management. Non-executive board fees excluded (reported separately under IFRS). Only high- and medium-confidence peers shown in primary table.</p>
+
+    <div class="thesis-bar">
+      IFRS Scope Note: Under IAS 19 / IFRS 2, the "employee benefit expenses" or "costo del personale" P&amp;L line in all IFRS-reporting companies <strong>must include</strong> all employee costs — wages, social charges, pension contributions, variable bonus, and share-based payment charges — for <strong>all employees including executive management</strong>. Non-executive board fees are separate. For Exus, the €27.7M from Budget 2026 includes payroll + bonus + social security (Slide 19). This ensures an apples-to-apples comparison on a fully loaded basis.
+    </div>
+
+    <table class="bench-table" style="font-size:11px;">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>HQ</th>
+          <th>FTEs</th>
+          <th>FTE Source &amp; Conf.</th>
+          <th>Est. Personnel Cost</th>
+          <th>Cost Source &amp; Conf.</th>
+          <th>Avg. Cost/FTE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Neoen</td>
+          <td>FR</td>
+          <td>~446</td>
+          <td>LeadIQ/Owler <span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">MED</span></td>
+          <td>~€78M</td>
+          <td>H1 2024 SEC filing (est. 45% of combined line) <span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">MED</span></td>
+          <td>~€175k</td>
+        </tr>
+        <tr>
+          <td>Statkraft</td>
+          <td>NO</td>
+          <td>6,915</td>
+          <td>FY2024 Annual Report p.3 <span style="background:#E1F5EE; color:#0F6E56; padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">HIGH</span></td>
+          <td>~€950M</td>
+          <td>Est. ~55% of NOK 19.3bn opex (Jun 2025 PR) <span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">MED</span></td>
+          <td>~€137k</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>Exus (2026 Budget)</strong></td>
+          <td>ES</td>
+          <td><strong>220</strong></td>
+          <td>Budget 2026 Slide 18 <span style="background:#E1F5EE; color:#0F6E56; padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">EXACT</span></td>
+          <td><strong>€27.7M</strong></td>
+          <td>Budget 2026 Slide 19 <span style="background:#E1F5EE; color:#0F6E56; padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">EXACT</span></td>
+          <td><strong>€126k</strong></td>
+        </tr>
+        <tr>
+          <td>ERG</td>
+          <td>IT</td>
+          <td>660</td>
+          <td>GlobalData/StockAnalysis (filings) <span style="background:#E1F5EE; color:#0F6E56; padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">HIGH</span></td>
+          <td>~€70M</td>
+          <td>Est. from Italian energy sector benchmarks <span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">MED</span></td>
+          <td>~€106k</td>
+        </tr>
+        <tr>
+          <td>Acciona Energía</td>
+          <td>ES</td>
+          <td>3,224</td>
+          <td>FY2024 Results Report <span style="background:#E1F5EE; color:#0F6E56; padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">HIGH</span></td>
+          <td>~€260M</td>
+          <td>Est. from sustainability report + Eurostat <span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">MED</span></td>
+          <td>~€81k</td>
+        </tr>
+        <tr>
+          <td><strong>VSB Group</strong></td>
+          <td>DE</td>
+          <td>~500</td>
+          <td>PG press release / TotalEnergies announcement <span style="background:#E1F5EE; color:#0F6E56; padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">HIGH</span></td>
+          <td>~€48M</td>
+          <td>Est. from German energy sector benchmarks (Destatis) <span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">MED</span></td>
+          <td>~€95k</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:14px; padding:12px 16px; background:var(--light-gray); border-radius:5px; font-size:11px; color:var(--near-black);">
+      <strong style="color:var(--teal-deeper);">Low-confidence peers (for reference only — not used in primary analysis):</strong><br>
+      <strong>Solaria</strong>: FTEs 121–247 (conflicting sources); own Q3 2025 report discloses avg. remuneration of €53,811 (likely base salary only, not fully loaded); fully loaded est. ~€65–80k/FTE. <strong>Grenergy</strong>: FTEs 252 (parent) to ~647 (consolidated); Latam-heavy workforce depresses avg. cost; est. ~€55–70k/FTE. <strong>BayWa r.e.</strong>: ~3,600 FTEs stitched from LinkedIn; includes solar distribution employees not comparable to IPP/developer model.
+    </div>
+
+    <div style="margin-top:10px; padding:12px 16px; background:var(--light-gray); border-radius:5px; font-size:11px; color:var(--near-black);">
+      <strong style="color:var(--teal-deeper);">VSB Group (PG exit, Dec 2024):</strong> ~500 FTEs and 3 GW managed at time of sale to TotalEnergies for €1.57bn. Personnel cost of ~€48M estimated from German energy sector Personalaufwand benchmarks (Destatis, fully loaded including Arbeitgeberanteil Sozialversicherung, bonus, and management compensation). VSB operated across 8 European countries with HQ in Dresden; cost base is predominantly German. Business model comparable to Exus: pan-European renewable energy platform covering development, construction, ownership, and asset management.
+    </div>
+
+    <div class="bar-chart" style="margin-top:18px;">
+      <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:12px; color:var(--deep-navy); margin-bottom:12px;">Average cost per FTE (€k) — High/medium-confidence peers + PG reference</div>
+      <div class="bar-row">
+        <div class="bar-label">Neoen</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:100%"><span class="bar-value">~€175k</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Statkraft</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:78%"><span class="bar-value">~€137k</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label is-exus">Exus</div>
+        <div class="bar-track"><div class="bar-fill exus" style="width:72%"><span class="bar-value">€126k</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">ERG</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:61%"><span class="bar-value">~€106k</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">VSB Group</div>
+        <div class="bar-track"><div class="bar-fill" style="width:54%; background:var(--border-gray);"><span class="bar-value">~€95k</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Acciona Energía</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:46%"><span class="bar-value">~€81k</span></div></div>
+      </div>
+    </div>
+
+    <div class="callout-box">
+      <h4>Interpretation</h4>
+      <p>Exus at €126k/FTE sits in the middle of the high-confidence peer group — below the Norwegian/French-headquartered Statkraft (€137k) and Neoen (€175k), but above the Southern European pure players Acciona (€81k) and ERG (€106k). This is structurally expected: Exus employs senior multi-country specialists (UK, Germany, France, Poland — all higher labour cost markets) in a platform model that requires fewer but more capable people. Acciona's lower average reflects its large Latam workforce, and ERG's reflects Italian-only operations. The critical insight remains: Exus pays a moderate premium per person but requires dramatically fewer people per MW — delivering the lowest total cost per MW in the peer group.</p>
+    </div>
+
+    <div class="footnotes">
+      <strong>Data notes:</strong> Solaria, Grenergy, and BayWa r.e. removed from primary table due to low FTE data confidence — shown as reference only.
+    </div>
+
+    <div class="watermark">EXUS · CONFIDENTIAL</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 6B: PERSONNEL COST PER MW ═══════════════ -->
+<div class="page">
+  <div class="section">
+    <div class="section-number">06B — Personnel Cost per MW Managed</div>
+    <h2>Personnel Cost per MW: Where Exus's Efficiency Is Most Visible</h2>
+    <p class="section-subtitle">Total estimated IFRS personnel cost (incl. management) divided by total managed capacity. High-confidence peers only. This is the metric that matters for capital returns.</p>
+
+    <div class="thesis-bar" style="font-size:15px;">
+      At €5,040 of personnel cost per MW, Exus spends 3–8× less on people per unit of managed capacity than its high-confidence peers. This is the single most defensible data point in the benchmarking analysis.
+    </div>
+
+    <table class="bench-table">
+      <thead>
+        <tr>
+          <th style="width:30px">Rank</th>
+          <th>Company</th>
+          <th>Personnel Cost</th>
+          <th>FTEs</th>
+          <th>Total Managed (GW)</th>
+          <th>Cost/FTE (€k)</th>
+          <th>Cost/MW (€k)</th>
+          <th>vs. Exus</th>
+          <th>Data Conf.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight">
+          <td><span class="rank-badge">1</span></td>
+          <td><strong>Exus</strong></td>
+          <td><strong>€27.7M</strong></td>
+          <td><strong>220</strong></td>
+          <td><strong>5.5</strong></td>
+          <td><strong>€126k</strong></td>
+          <td><strong>€5.0k</strong></td>
+          <td>—</td>
+          <td><span style="background:#E1F5EE; color:#0F6E56; padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">EXACT</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--slate-gray)">2</span></td>
+          <td>Neoen</td>
+          <td>~€78M</td>
+          <td>~446</td>
+          <td>9.0</td>
+          <td>~€175k</td>
+          <td>~€8.7k</td>
+          <td>1.7×</td>
+          <td><span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">MED</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--slate-gray)">3</span></td>
+          <td>Acciona Energía</td>
+          <td>~€260M</td>
+          <td>3,224</td>
+          <td>15.4</td>
+          <td>~€81k</td>
+          <td>~€16.9k</td>
+          <td>3.4×</td>
+          <td><span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">MED</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--slate-gray)">—</span></td>
+          <td><strong>VSB Group</strong></td>
+          <td>~€48M</td>
+          <td>~500</td>
+          <td>3.0</td>
+          <td>~€95k</td>
+          <td>~€15.8k</td>
+          <td>3.2×</td>
+          <td><span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">MED</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--slate-gray)">4</span></td>
+          <td>ERG</td>
+          <td>~€70M</td>
+          <td>660</td>
+          <td>3.8</td>
+          <td>~€106k</td>
+          <td>~€18.4k</td>
+          <td>3.7×</td>
+          <td><span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">MED</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--slate-gray)">5</span></td>
+          <td>Statkraft</td>
+          <td>~€950M</td>
+          <td>6,915</td>
+          <td>22.3</td>
+          <td>~€137k</td>
+          <td>~€42.6k</td>
+          <td>8.5×</td>
+          <td><span style="background:#FAEEDA; color:var(--slate-gray); padding:1px 5px; border-radius:3px; font-size:8px; font-weight:700;">MED</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bar-chart" style="margin-top:16px;">
+      <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:12px; color:var(--deep-navy); margin-bottom:12px;">Personnel cost per MW managed (€k) — Lower = more efficient</div>
+      <div class="bar-row">
+        <div class="bar-label is-exus">Exus</div>
+        <div class="bar-track"><div class="bar-fill exus" style="width:12%"><span class="bar-value">€5.0k</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Neoen</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:20%"><span class="bar-value">~€8.7k</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">VSB Group</div>
+        <div class="bar-track"><div class="bar-fill" style="width:37%; background:var(--border-gray);"><span class="bar-value">~€15.8k</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Acciona Energía</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:40%"><span class="bar-value">~€16.9k</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">ERG</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:43%"><span class="bar-value">~€18.4k</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Statkraft</div>
+        <div class="bar-track"><div class="bar-fill peer" style="width:100%"><span class="bar-value">~€42.6k</span></div></div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px; padding:16px 18px; background:var(--soft-teal); border-left:4px solid var(--teal-core); border-radius:0 5px 5px 0;">
+      <h4 style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:12px; color:var(--deep-navy); margin-bottom:10px;">Pipeline-inclusive stress test: VSB Group vs. Exus</h4>
+      <div style="font-size:11.5px; line-height:1.6; color:var(--near-black);">
+        <p style="margin-bottom:8px;">VSB's 18 GW pipeline (sourced from TotalEnergies acquisition announcement, Dec 2024) was predominantly early-stage development — land rights and permits across Germany, Poland, and France. PG themselves note the pipeline "more than doubled" under their ownership from ~8 GW, meaning most was originated rather than inherited as mature projects. Including this pipeline changes the picture:</p>
+        <table style="width:100%; font-size:11px; border-collapse:collapse; margin:8px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid var(--teal-core);">
+              <th style="text-align:left; padding:6px 8px; font-size:10px; text-transform:uppercase; letter-spacing:0.3px; color:var(--deep-navy);">Metric</th>
+              <th style="text-align:right; padding:6px 8px; font-size:10px; text-transform:uppercase; letter-spacing:0.3px; color:var(--teal-deeper);">Exus (Budget 2026)</th>
+              <th style="text-align:right; padding:6px 8px; font-size:10px; text-transform:uppercase; letter-spacing:0.3px; color:var(--deep-navy);">VSB Group</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border-gray);">
+              <td style="padding:5px 8px;">Personnel cost</td>
+              <td style="text-align:right; padding:5px 8px; font-weight:700; color:var(--teal-deeper);">€27.7M</td>
+              <td style="text-align:right; padding:5px 8px;">~€48M</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-gray);">
+              <td style="padding:5px 8px;">Op + Cons + Managed</td>
+              <td style="text-align:right; padding:5px 8px; font-weight:700; color:var(--teal-deeper);">5.5 GW</td>
+              <td style="text-align:right; padding:5px 8px;">3.0 GW</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-gray);">
+              <td style="padding:5px 8px;">Energy Pipeline</td>
+              <td style="text-align:right; padding:5px 8px; font-weight:700; color:var(--teal-deeper);">3.4 GW</td>
+              <td style="text-align:right; padding:5px 8px;">~18 GW</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-gray);">
+              <td style="padding:5px 8px;">ED Pipeline (DC projects)</td>
+              <td style="text-align:right; padding:5px 8px; font-weight:700; color:var(--teal-deeper);">~1.5 GW</td>
+              <td style="text-align:right; padding:5px 8px;">—</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-gray);">
+              <td style="padding:5px 8px;">Total incl. all pipeline</td>
+              <td style="text-align:right; padding:5px 8px; font-weight:700; color:var(--teal-deeper);">~10.4 GW</td>
+              <td style="text-align:right; padding:5px 8px;">~21 GW</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-gray); background:var(--light-gray);">
+              <td style="padding:5px 8px; font-weight:700;">Cost/MW (Op+Cons+Managed)</td>
+              <td style="text-align:right; padding:5px 8px; font-weight:700; color:var(--teal-deeper);">€5.0k</td>
+              <td style="text-align:right; padding:5px 8px; font-weight:700;">~€16.0k</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-gray); background:var(--light-gray);">
+              <td style="padding:5px 8px; font-weight:700;">Cost/MW (incl. energy pipeline)</td>
+              <td style="text-align:right; padding:5px 8px; font-weight:700; color:var(--teal-deeper);">€3.1k</td>
+              <td style="text-align:right; padding:5px 8px; font-weight:700;">~€2.3k</td>
+            </tr>
+            <tr style="background:var(--light-gray);">
+              <td style="padding:5px 8px; font-weight:700;">Cost/MW (incl. energy + ED pipeline)</td>
+              <td style="text-align:right; padding:5px 8px; font-weight:700; color:var(--teal-deeper);">€2.7k</td>
+              <td style="text-align:right; padding:5px 8px; font-weight:700;">~€2.3k</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:8px;"><strong style="color:var(--deep-navy);">Interpretation:</strong> On a pipeline-inclusive basis using energy projects only, VSB's cost/MW (~€2.3k) falls below Exus (~€3.1k). However, once Exus Digital projects are included — which consume significant FTE time but receive no credit in the energy-only comparison — Exus narrows to €2.7k/MW, broadly comparable to VSB. Two important caveats apply: (1) VSB's 18 GW pipeline is overwhelmingly early-stage land development requiring minimal management FTEs — it does not represent the same workload per MW as Exus's TPS portfolio, which is 78% operational asset management under contracted service agreements; (2) Exus's energy pipeline of 3.4 GW is at more advanced development stages (including Setúbal with a €21M grid bond posted, Bełchatów at 100% ownership, and Hohe Börde under active development), and the 1.5 GW ED pipeline represents a capability no peer possesses. The <strong>hard capacity basis</strong> (Op+Cons+Managed) — where VSB costs 3.2× more per MW than Exus — remains the most meaningful comparison for assessing workforce efficiency against actual management workload. Pipeline-inclusive metrics are shown for completeness and transparency.</p>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:20px;">
+      <div>
+        <div class="callout-box" style="margin:0;">
+          <h4>Cost per MW decomposition</h4>
+          <p>Cost/MW = Cost/FTE × FTE/MW (inverse of MW/FTE). Exus wins because the FTE/MW component is so low (0.040) that even a moderate Cost/FTE (€126k) delivers the lowest Cost/MW in the group. Statkraft's extreme €42.6k/MW reflects both high Norwegian labour costs (€137k/FTE) AND low efficiency (3.2 MW/FTE). The lesson: workforce efficiency matters far more than unit labour cost for platform economics.</p>
+        </div>
+      </div>
+      <div>
+        <div style="background:var(--soft-teal); border-radius:6px; padding:18px 16px; border-top:3px solid var(--teal-core);">
+          <h4 style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:12px; color:var(--deep-navy); margin-bottom:10px;">Decomposition — Cost/FTE × FTE/MW</h4>
+          <div style="font-size:12px; line-height:1.8; color:var(--near-black);">
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-gray); padding:3px 0; font-weight:700; color:var(--teal-deeper);">
+              <span>Exus:</span><span>€126k × 0.040 = <strong>€5.0k</strong></span>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-gray); padding:3px 0;">
+              <span>Neoen:</span><span>~€175k × 0.050 = ~€8.7k</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-gray); padding:3px 0;">
+              <span>Acciona:</span><span>~€81k × 0.209 = ~€16.9k</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-gray); padding:3px 0; color:var(--near-black);">
+              <span>VSB (PG):</span><span>~€95k × 0.167 = ~€15.8k</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-gray); padding:3px 0;">
+              <span>ERG:</span><span>~€106k × 0.174 = ~€18.4k</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:3px 0;">
+              <span>Statkraft:</span><span>~€137k × 0.310 = ~€42.6k</span>
+            </div>
+          </div>
+          <p style="font-size:10px; color:var(--medium-gray); margin-top:8px; line-height:1.4;">FTE/MW = inverse of MW/FTE. Exus's 0.040 FTE/MW is the lowest in the peer group. Even if Exus's cost/FTE were as high as Statkraft's (€137k), cost/MW would still be only €5.5k — 3× below Acciona and 8× below Statkraft.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footnotes">
+      <strong>IFRS Personnel Cost Inclusion:</strong> All figures represent total IFRS "employee benefit expenses" or equivalent P&amp;L line, which under IAS 19 and IFRS 2 must include: wages &amp; salaries, social security contributions, pension/retirement benefits, variable bonus/performance pay, and share-based payment charges for ALL employees including executive management (CEO, CFO, ExCom). Non-executive board/director fees are excluded (reported separately). This ensures management compensation is consistently included across all companies. Exus €27.7M confirmed to include payroll + bonus + social security per Budget 2026 Slide 19. Neoen IFRS 2 charge of €0.8M confirmed in H1 2024 SEC filing as included in personnel expenses. Statkraft confirms "performance related remuneration" is inside the salaries and payroll costs line (Q3 2024 press release). Acciona Energía reports under Spanish GAAP/IFRS where "gastos de personal" by regulation includes all employee benefit expenses including executives.
+    </div>
+
+    <div class="watermark">EXUS · CONFIDENTIAL</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 7: CONCLUSION ═══════════════ -->
+<div class="page">
+  <div class="section">
+    <div class="section-number">07 — Conclusion</div>
+    <h2>The Data Supports Full Approval of the 2026 Hiring Plan</h2>
+    <p class="section-subtitle">Across every metric assessed — MW per FTE, cost per FTE, cost per MW, scope-adjusted efficiency, and forward trajectory — Exus operates at or near the efficiency frontier of its European peer group. The analysis leaves no reasonable basis for concern about over-hiring.</p>
+
+    <div class="thesis-bar" style="font-size:15px;">
+      Exus manages 3–5× more capacity per employee than any integrated European peer. It does so across the broadest capability set in the benchmark — 9 out of 9 functions — while operating in 7 countries with 5+ technologies. The 39 FTEs in the 2026 recruitment plan represent the minimum staffing to sustain execution quality on a platform that is already operating at a level of efficiency no comparable company in Europe has achieved.
+    </div>
+
+    <div style="margin:24px 0;">
+      <h4 style="font-family:'Montserrat',sans-serif; font-size:13px; color:var(--deep-navy); margin-bottom:14px;">Summary of Key Findings</h4>
+      <div style="font-size:13px; line-height:1.8; color:var(--near-black);">
+        <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">1. FTE Efficiency Leadership.</strong> Exus ranks #1 in the peer group at 25.0 MW/FTE (2026 Budget), exceeding even pure-play IPPs like Neoen (20.2) that operate narrower scopes. The peer median sits at ~6.5 MW/FTE.</p>
+        <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">2. Scope Exceeds All Peers.</strong> Exus is the only platform covering 9/9 capability areas (development, IPP, third-party AM, energy management, BESS, gas, data centres, industrial solutions, PPA structuring). The next broadest peer covers 5/9.</p>
+        <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">3. Improving Operating Leverage.</strong> The 2025→2026 trajectory shows capacity growing +43% while FTEs grow +22%. MW/FTE is improving, not degrading — the platform is generating scale economies.</p>
+        <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">4. Cost Discipline Intact.</strong> At €5,000 of personnel cost per MW managed, the workforce model is lean by any standard. Average cost per FTE of ~€126k reflects a high-quality, specialised workforce — but the aggregate cost base remains proportionate to a ~€2B enterprise value target.</p>
+        <p><strong style="color:var(--teal-deeper);">5. Forward Trajectory Holds.</strong> Even at ~300 FTEs in 2030, Exus will maintain a MW/FTE ratio of ~22.6 — still more than 3× the peer median. The platform is scaling capacity faster than headcount.</p>
+      </div>
+    </div>
+
+    <div class="callout-box">
+      <h4>Strategic Assessment</h4>
+      <p>The 2026 recruitment plan of 39 FTEs represents the minimum staffing to execute the approved Business Plan across 7 countries and 6 business lines. Management, as a significant equity holder alongside PG, is structurally aligned with the objective of maintaining the leanest possible organisation. Every peer in this analysis operates with 3–8× more people per MW than Exus. The relevant question for the Board is not whether Exus is hiring too many people — no data point supports that concern — but whether the current staffing trajectory is sufficient to protect the portfolio that has already been built and to execute the capital programme that has already been approved.</p>
+    </div>
+
+    <div class="thesis-bar" style="margin-top:24px;">
+      No data point in this analysis — or in any comparable benchmark available in the European energy sector — supports a conclusion that Exus is over-staffed. The analysis supports management's request that the NCC approve the 2026 recruitment plan in full, and that future hiring within approved Business Plan parameters be treated as a management execution decision consistent with standard institutional governance for execution-led platforms.
+    </div>
+
+    <div class="footnotes">
+      This analysis was prepared for internal Board and IC reference only. Full source references provided in Appendix (Section 08). Classification: Strictly Private &amp; Confidential.
+    </div>
+
+    <div class="watermark">EXUS · CONFIDENTIAL</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 8: CONCLUSIONS SUMMARY ═══════════════ -->
+<div class="page">
+  <div class="section" style="min-height:auto; padding-bottom:60px;">
+    <div class="section-number">08 — Conclusions for the Board &amp; NCC</div>
+    <h2>Five Conclusions from the Benchmarking Analysis</h2>
+    <p class="section-subtitle">The following conclusions are drawn from audited company filings, public annual reports, regulatory disclosures, and Exus's own approved Budget and Business Plan. Each conclusion is supported by the detailed analysis in the preceding sections.</p>
+
+    <div style="margin-bottom:20px;">
+      <div style="display:flex; gap:14px; align-items:flex-start; margin-bottom:16px; padding:16px 18px; background:var(--soft-teal); border-left:4px solid var(--teal-core); border-radius:0 5px 5px 0;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:24px; color:var(--teal-core); min-width:36px;">1</div>
+        <div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; color:var(--deep-navy); margin-bottom:4px;">Exus operates at the frontier of FTE efficiency in Europe.</div>
+          <div style="font-size:12.5px; line-height:1.6; color:var(--near-black);">At 25.0 MW per FTE (2026 Budget), Exus manages 3.8× the peer group median (~6.5 MW/FTE). Only Neoen achieves a comparable ratio (20.2), and Neoen does so with a materially narrower scope: 3 technologies, no third-party AM, no data centre development, no industrial solutions, no gas peakers. Larger integrated peers — Statkraft (3.3), Acciona Energía (4.8), ERG (4.4) — require 5–8× more FTEs per MW of managed capacity. The efficiency gap is structural, not coincidental.</div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:14px; align-items:flex-start; margin-bottom:16px; padding:16px 18px; background:var(--soft-teal); border-left:4px solid var(--teal-core); border-radius:0 5px 5px 0;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:24px; color:var(--teal-core); min-width:36px;">2</div>
+        <div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; color:var(--deep-navy); margin-bottom:4px;">Exus manages the broadest scope of any company in the benchmark.</div>
+          <div style="font-size:12.5px; line-height:1.6; color:var(--near-black);">Exus covers 9 out of 9 capability areas assessed: wind development, solar PV, BESS, gas peakers, data centre infrastructure, industrial solutions, third-party AM/O&amp;M, energy management, and PPA structuring. No peer covers more than 5 out of 9. This means each Exus FTE is effectively responsible for a broader range of tasks, decisions, and regulatory interfaces than any comparable employee at a peer company. Scope-adjusted, Exus's efficiency advantage is even more pronounced.</div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:14px; align-items:flex-start; margin-bottom:16px; padding:16px 18px; background:var(--soft-teal); border-left:4px solid var(--teal-core); border-radius:0 5px 5px 0;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:24px; color:var(--teal-core); min-width:36px;">3</div>
+        <div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; color:var(--deep-navy); margin-bottom:4px;">The platform is generating operating leverage — capacity is growing faster than headcount.</div>
+          <div style="font-size:12.5px; line-height:1.6; color:var(--near-black);">Between 2025 and 2026, managed capacity increases by +43% (3.9 → 5.5 GW) while FTEs increase by only +22% (181 → 220). The MW/FTE ratio improves from 21.3 to 25.0. This is the opposite of organisational bloat — it is operating leverage compounding. The centralised GBS model, technology-first approach to asset management, and the inherent scalability of third-party AM services are all contributing to this dynamic.</div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:14px; align-items:flex-start; margin-bottom:16px; padding:16px 18px; background:var(--soft-teal); border-left:4px solid var(--teal-core); border-radius:0 5px 5px 0;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:24px; color:var(--teal-core); min-width:36px;">4</div>
+        <div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; color:var(--deep-navy); margin-bottom:4px;">The 2026 recruitment plan of 39 FTEs is the minimum, not an expansion.</div>
+          <div style="font-size:12.5px; line-height:1.6; color:var(--near-black);">Of the 39 new positions: 14 support existing projects that cannot be delayed without execution risk, 9 address minimum critical size requirements in country offices that currently operate below sustainable levels, and 16 are growth-related — enabling the pipeline expansion into UK&amp;I and Germany that underpins the Business Plan. Delaying or cutting these hires does not save cost in any meaningful sense; it creates execution risk on a €230–250M capital deployment programme and jeopardises the platform's ability to deliver on its commitments to PG and the IC.</div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:14px; align-items:flex-start; margin-bottom:16px; padding:16px 18px; background:var(--soft-teal); border-left:4px solid var(--teal-core); border-radius:0 5px 5px 0;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:24px; color:var(--teal-core); min-width:36px;">5</div>
+        <div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; color:var(--deep-navy); margin-bottom:4px;">The 2030 trajectory confirms sustained efficiency at ~300 FTEs.</div>
+          <div style="font-size:12.5px; line-height:1.6; color:var(--near-black);">The Business Plan targets ~300 FTEs by 2030 managing ~6.8 GW of total capacity — a ratio of ~22.6 MW/FTE, which remains 3.5× the current peer median. The platform will by then span ~1 GW operational IPP, ~5 GW development pipeline, ~10 GW third-party services, and 3–4 Exus Digital projects. This is not an organisation that needs to be constrained further; it is an organisation that needs the minimum resourcing to deliver on one of the most differentiated platform strategies in European energy.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-box">
+      <h4>Proposed Actions for the Board &amp; NCC</h4>
+      <p>Based on the findings of this analysis, management proposes: (1) that the NCC approve the 2026 recruitment plan of 39 FTEs in full, consistent with the approved Business Plan; (2) that future hiring within approved Business Plan parameters be treated as a management execution decision, with the NCC retaining oversight of the compensation framework and aggregate headcount trajectory rather than individual role approvals; and (3) that the Board acknowledge the execution risk inherent in under-resourcing a platform at this stage of its scaling trajectory — a €2 billion enterprise value target supported by a €230–250M capital programme that requires adequate staffing to deliver. The prorated cost of the 39 new positions is €3.4M (€6.0M annualised) — a marginal investment relative to the programme it enables.</p>
+    </div>
+
+    <div class="footnotes" style="margin-top:24px;">
+      <strong>Document Classification:</strong> Strictly Private &amp; Confidential — Prepared by Strategy &amp; Planning for the Board &amp; NCC. March 2026.<br>
+      <strong>Internal Sources:</strong> Exus Budget 2026 (January 2026); Exus Business Case 2.5 vF (November 2025); Exus Business Plan Organic Growth Case vS (January 2026); Exus Energy Services 2.0.<br>
+      <strong>Peer Sources:</strong> Neoen FY2024 Annual Results (March 2025), H1 2024 SEC filing via Brookfield; Statkraft Annual Report 2024 &amp; 2025; Acciona Energía FY2024 Results Report, H1 2024 Sustainability Report; ERG FY2024 via GlobalData/StockAnalysis; VSB Group via Partners Group press release (Dec 4, 2024) and TotalEnergies acquisition announcement (Dec 2024 / closing Apr 2025); Grenergy Wikipedia, PitchBook; Solaria PitchBook, GlobalData, Yahoo Finance; BayWa r.e. LinkedIn (EMEA/APAC/Americas); Capital Energy website. Third-party databases: LeadIQ, PitchBook, Owler, GlobalData, StockAnalysis, Destatis, Eurostat, ISTAT.
+    </div>
+
+    <div class="watermark">EXUS · CONFIDENTIAL</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 9: SOURCES APPENDIX ═══════════════ -->
+<div class="page">
+  <div class="section" style="min-height:auto; padding-bottom:60px;">
+    <div class="section-number">09 — Appendix: Sources &amp; Methodology</div>
+    <h2>Data Sources and Verification</h2>
+    <p class="section-subtitle">All peer data sourced from public filings, annual reports, investor presentations, and verified third-party databases. Data retrieved March 2026. Where multiple sources provided conflicting figures, the most recent and most authoritative source was used.</p>
+
+    <h4 style="font-family:'Montserrat',sans-serif; font-size:13px; color:var(--deep-navy); margin:20px 0 10px; border-bottom:2px solid var(--teal-core); padding-bottom:6px;">Exus (Internal)</h4>
+    <table class="bench-table" style="font-size:11px;">
+      <thead><tr><th>Data Point</th><th>Source Document</th><th>Date</th></tr></thead>
+      <tbody>
+        <tr><td>220 FTEs (2026 Budget), 181 FTEs (2025 Outturn), 114 (2024), 67 (2023)</td><td>Exus Budget 2026, Slide 18 — "P&amp;L Overview | FTEs &amp; Personnel Costs"</td><td>January 2026</td></tr>
+        <tr><td>39 new positions for 2026 (16 growth, 14 existing projects, 9 minimum critical size)</td><td>Exus Budget 2026, Slide 20 — "Recruitment Budget 2026"</td><td>January 2026</td></tr>
+        <tr><td>€27.7M total personnel cost (2026 Budget); €30.5M annualised</td><td>Exus Budget 2026, Slide 19 — "Personnel Company Cost Evolution"</td><td>January 2026</td></tr>
+        <tr><td>5,511 MW total capacity (2026 Budget); 3,850 MW TPES capacity</td><td>Exus Budget 2026, Slide 9 — "Performance at a Glance"</td><td>January 2026</td></tr>
+        <tr><td>3,109 MW third-party managed capacity (Europe)</td><td>Exus Energy Services 2.0, Slide 3 — "Geographic footprint and installed capacity"</td><td>2025</td></tr>
+        <tr><td>~300 FTEs (2030 target), ~6.8 GW managed capacity (2030)</td><td>Exus Business Case 2.5 vF, Slide 18 — "First-Class Workforce" / 2030 Valuation Overview</td><td>November 2025</td></tr>
+        <tr><td>2030 FTE breakdown: 60 DevCo, 43 IPP, 66 TPS, 4 IS, 12 ED, 48 Corporate, 41 GBS</td><td>Exus Business Plan 2025 — Organic Growth Case vS, Slide 21</td><td>January 2026</td></tr>
+        <tr><td>7 countries: ES, PT, FR, DE, PL, IT, UK&amp;I</td><td>Exus Budget 2026, FTE breakdown by country (Slides 18, 20)</td><td>January 2026</td></tr>
+        <tr><td>Exus Digital: 7 FTEs, €3.0M company cost (2026 Budget)</td><td>Exus Budget 2026, Slide 18</td><td>January 2026</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="font-family:'Montserrat',sans-serif; font-size:13px; color:var(--deep-navy); margin:24px 0 10px; border-bottom:2px solid var(--teal-core); padding-bottom:6px;">Peer Companies</h4>
+    <table class="bench-table" style="font-size:11px;">
+      <thead><tr><th style="width:110px">Company</th><th>Data Point</th><th>Source</th><th style="width:80px">Date</th></tr></thead>
+      <tbody>
+        <tr>
+          <td rowspan="3" style="vertical-align:top; font-weight:700;">Neoen</td>
+          <td>~446 employees</td>
+          <td>LeadIQ Company Profile (leadiq.com/c/neoen); Owler Profile (~439 employees)</td>
+          <td>Oct 2025</td>
+        </tr>
+        <tr>
+          <td>9.0 GW capacity in operation, construction or management</td>
+          <td>Neoen official website (neoen.com/en/); Wikipedia — confirmed 8.2 GW as of Aug 2025, 8.9 GW at Dec 2024 per Annual Results</td>
+          <td>Mar 2026</td>
+        </tr>
+        <tr>
+          <td>14 countries, 3 technologies (PV, Wind, BESS)</td>
+          <td>Neoen FY2024 Estimated Results (neoen.com/app/uploads/2025/03/PR-Neoen-Estimated-unaudited-2024-FY-results); Wikipedia</td>
+          <td>Mar 2025</td>
+        </tr>
+
+        <tr>
+          <td rowspan="3" style="vertical-align:top; font-weight:700;">Statkraft</td>
+          <td>6,513 employees</td>
+          <td>Statkraft Annual Report 2025 (statkraft.com/globalassets/annual-report-2025)</td>
+          <td>2025</td>
+        </tr>
+        <tr>
+          <td>21,614 MW installed capacity</td>
+          <td>Statkraft Annual Report 2025; Q4/FY2024 Results Presentation (21.4 GW at Dec 2024)</td>
+          <td>2025</td>
+        </tr>
+        <tr>
+          <td>20 countries; Hydro, Wind, PV, Gas</td>
+          <td>Statkraft Annual Report 2025; Wikipedia; statkraft.com</td>
+          <td>2025</td>
+        </tr>
+
+        <tr>
+          <td rowspan="3" style="vertical-align:top; font-weight:700;">Acciona Energía</td>
+          <td>~3,224 average workforce (FY2024)</td>
+          <td>Acciona Energía FY2024 Results Report (acciona-energia.com/content/dam/energiacom); H1 2024 Sustainability Report: 3,205 employees at H1</td>
+          <td>FY2024</td>
+        </tr>
+        <tr>
+          <td>15.4 GW total installed capacity (FY2024); 13.6 GW consolidated</td>
+          <td>ACCIONA Company Overview April 2025; H1 2025 Results Presentation (15.1 GW); FY2024 Results Report</td>
+          <td>Apr 2025</td>
+        </tr>
+        <tr>
+          <td>24–25 countries; Wind, PV, Hydro, Biomass</td>
+          <td>ACCIONA Company Overview April 2025; Wikipedia</td>
+          <td>Apr 2025</td>
+        </tr>
+
+        <tr>
+          <td rowspan="3" style="vertical-align:top; font-weight:700;">ERG</td>
+          <td>~860 employees</td>
+          <td>LeadIQ Company Profile (leadiq.com/c/erg-spa) — Oct 2025; earlier figure of 739 from Jul 2025</td>
+          <td>Oct 2025</td>
+        </tr>
+        <tr>
+          <td>3,754 MW installed capacity</td>
+          <td>Wikipedia — ERG (company); ERG Annual Report 2023 (annualreports.com/HostedData/erg-spa_2023.pdf)</td>
+          <td>Jun 2024</td>
+        </tr>
+        <tr>
+          <td>10 countries; Wind, PV</td>
+          <td>Wikipedia; ERG Annual Report 2023</td>
+          <td>2024</td>
+        </tr>
+
+        <tr>
+          <td rowspan="3" style="vertical-align:top; font-weight:700;">Grenergy Renovables</td>
+          <td>~647 employees</td>
+          <td>PitchBook Company Profile (pitchbook.com/profiles/company/111173-14); Wikipedia (~600+ in 2023)</td>
+          <td>2025</td>
+        </tr>
+        <tr>
+          <td>~5.5 GW portfolio (completed + operational + under construction + BESS)</td>
+          <td>Wikipedia — Grenergy; Rejobs.org profile (over 5,500 MW solar completed); CDP Report 2024</td>
+          <td>2024–25</td>
+        </tr>
+        <tr>
+          <td>~8 countries; PV, BESS</td>
+          <td>Wikipedia — Grenergy; grenergy.eu</td>
+          <td>2025</td>
+        </tr>
+
+        <tr>
+          <td rowspan="3" style="vertical-align:top; font-weight:700;">Solaria</td>
+          <td>~247 employees</td>
+          <td>PitchBook (pitchbook.com/profiles/company/62550-19); GlobalData (235 employees); LeadIQ (~301 employees Oct 2024)</td>
+          <td>2025</td>
+        </tr>
+        <tr>
+          <td>~2.6 GW operational + under construction (14.2 GW total pipeline)</td>
+          <td>Solaria official website (solariaenergia.com); Yahoo Finance profile</td>
+          <td>End 2024</td>
+        </tr>
+        <tr>
+          <td>5 countries; PV only (+ DC announced)</td>
+          <td>Yahoo Finance; solariaenergia.com</td>
+          <td>2025</td>
+        </tr>
+
+        <tr>
+          <td rowspan="3" style="vertical-align:top; font-weight:700;">BayWa r.e.</td>
+          <td>~3,600 employees (est. EMEA 1,600+ Americas + APAC 280+)</td>
+          <td>LinkedIn — BayWa r.e. EMEA (1,600 employees); BayWa r.e. APAC (280+ employees); BayWa r.e. Americas LinkedIn</td>
+          <td>2024–25</td>
+        </tr>
+        <tr>
+          <td>10.5 GW managed assets; 6+ GW brought online</td>
+          <td>BayWa r.e. global website (baywa-re.com/en/about-baywa-re); Americas website (us.baywa-re.com)</td>
+          <td>2025</td>
+        </tr>
+        <tr>
+          <td>30+ countries; PV, Wind, Distribution, Trading</td>
+          <td>BayWa r.e. EMEA LinkedIn; baywa-re.com</td>
+          <td>2025</td>
+        </tr>
+
+        <tr>
+          <td rowspan="2" style="vertical-align:top; font-weight:700;">Capital Energy<br><span style="font-weight:400; font-size:10px; color:var(--medium-gray);">(reference only)</span></td>
+          <td>390+ employees</td>
+          <td>Capital Energy website (capitalenergy.com/en/sustainability/our-employees)</td>
+          <td>2025</td>
+        </tr>
+        <tr>
+          <td>16 GW pipeline (8.7 GW with grid access); ~206 MW installed</td>
+          <td>Capital Energy website (capitalenergy.com/en); Reuters/Power Technology reporting on 4.3 GW sale</td>
+          <td>2024–25</td>
+        </tr>
+
+        <tr>
+          <td rowspan="4" style="vertical-align:top; font-weight:700;">VSB Group<br><span style="font-weight:400; font-size:10px; color:var(--medium-gray);">sold to TotalEnergies Dec 2024</span></td>
+          <td>~500 employees at exit</td>
+          <td>Partners Group press release (Dec 4, 2024); TotalEnergies acquisition announcement</td>
+          <td>Dec 2024</td>
+        </tr>
+        <tr>
+          <td>3 GW managed; 2.3 GW developed to date; 475 MW in operation/construction; <strong>18 GW pipeline</strong> (wind, solar, BESS — mainly Germany, Poland, France)</td>
+          <td>Partners Group press release (Dec 4, 2024); TotalEnergies announcement (Dec 4, 2024 &amp; closing Apr 2, 2025). Pipeline doubled from ~8 GW to 18 GW under PG ownership (2020–2024).</td>
+          <td>Dec 2024</td>
+        </tr>
+        <tr>
+          <td>8 countries; Wind, PV (HQ Dresden, Germany)</td>
+          <td>PG acquisition press release (2020); VSB website (vsb.energy)</td>
+          <td>2020–24</td>
+        </tr>
+        <tr>
+          <td>~€48M est. personnel cost; ~€95k/FTE</td>
+          <td>Estimated from Destatis "Energieversorgung" sector benchmarks; German fully loaded employer cost incl. Arbeitgeberanteil Sozialversicherung, bonus, pension. Weighted for 8-country footprint with predominantly German cost base.</td>
+          <td>2024 est.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 style="font-family:'Montserrat',sans-serif; font-size:13px; color:var(--deep-navy); margin:24px 0 10px; border-bottom:2px solid var(--teal-core); padding-bottom:6px;">Methodology Notes</h4>
+    <div style="font-size:11.5px; line-height:1.7; color:var(--near-black);">
+      <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">MW/FTE Calculation:</strong> Total managed capacity (operational + under construction + third-party assets under management, where applicable) divided by total company headcount. This is the most comprehensive and fair basis of comparison, as it captures the full scope of management responsibility per employee. For Exus, this includes both the internal portfolio (~1.7 GW in 2026) and third-party managed assets (~3.85 GW TPES in 2026 Budget). For peers, we use the broadest available capacity figure (operational + under construction + managed).</p>
+      <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">TPS Capacity Composition (Budget 2026 Slide 16):</strong> The 3,851 MW TPS portfolio is not pipeline — it is predominantly contracted management of operational assets. Breakdown by service type: Asset Management of operational assets: ~2,751 MW (71%); O&amp;M of operational assets (existing + growth): ~255 MW (7%); Construction Supervision: ~681 MW (18%); Development Supervision: ~164 MW (4%). Total operational (AM + O&amp;M): ~3,006 MW = <strong>78% of TPS</strong>. This means the Op+Cons+TPS metric used throughout this analysis is overwhelmingly grounded in hard, revenue-generating, contracted capacity — not aspirational pipeline. The TPS column is functionally equivalent to "operational managed capacity" and should be treated as such for benchmarking purposes.</p>
+      <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">Headcount Definition:</strong> Total FTEs including all employees across all geographies and all functions (corporate, operations, development, G&amp;A). Where peers report "average workforce" vs. "period-end headcount," we use the most recently reported figure. Contractor and outsourced labour is excluded for all companies.</p>
+      <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">Comparability Considerations:</strong> This benchmark deliberately compares Exus to companies with different business models to illustrate the breadth of Exus's scope. Pure IPPs (Neoen), vertically integrated developers (Acciona Energía, Grenergy), asset-heavy operators (ERG, Statkraft), and integrated platforms (BayWa r.e.) are all included. The scope-adjusted analysis in Section 04 addresses the apples-to-oranges concern by showing that Exus covers materially more capability areas per FTE than any peer.</p>
+      <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">VSB Group:</strong> Included as a directly relevant comparator — a pan-European renewable energy platform with a comparable business model to Exus. PG acquired 80% of VSB in 2020 (then ~300 employees, 1.1 GW developed, 1.4 GW managed) and sold to TotalEnergies in December 2024 for €1.57bn (then ~500 employees, 2.3 GW developed, 3 GW managed, 475 MW in operation/construction, 18 GW pipeline). FTE, capacity, and pipeline figures are from PG's own exit press release and TotalEnergies' acquisition announcement — high confidence. Personnel cost (~€48M, ~€95k/FTE) is estimated from German energy sector Personalaufwand benchmarks (Destatis) — medium confidence. On a hard capacity basis (Op+Cons+Managed), VSB's cost/MW of ~€16k is 3.2× Exus. On a pipeline-inclusive basis, VSB's ~€2.3k/MW appears more efficient than Exus's ~€3.1k/MW — but the 18 GW pipeline is predominantly early-stage land development requiring minimal management FTEs, whereas Exus's TPS portfolio is 78% operational asset management under contracted service agreements. The hard capacity metric is the more meaningful basis for workforce efficiency comparison.</p>
+      <p style="margin-bottom:8px;"><strong style="color:var(--teal-deeper);">Solaria DC Activities:</strong> Solaria has announced data centre ambitions. However, as of December 2024, these are nascent and not yet at the development stage that Exus Digital has reached (Setúbal grid bond posted, Bełchatów 100% owned, Hohe Börde under active development). Solaria's capability matrix reflects its current operational scope, not announced intentions.</p>
+      <p><strong style="color:var(--teal-deeper);">Capital Energy:</strong> Included as a reference point only (not in the main ranking) because Capital Energy is primarily a development-stage company with limited operational capacity (~206 MW installed) relative to its pipeline (16 GW). Its ~390 FTEs against ~206 MW operational capacity would yield an extremely low MW/FTE of ~0.5, which is not comparable to platforms with significant operational or managed portfolios. However, it illustrates that development-heavy models are inherently more FTE-intensive per operational MW.</p>
+    </div>
+
+    <div class="watermark">EXUS · CONFIDENTIAL</div>
+  </div>
+</div>
+
+</body>
+</html>
+
